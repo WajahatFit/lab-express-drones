@@ -1,5 +1,6 @@
 const express = require('express');
 const { connection } = require('mongoose');
+const { deleteOne } = require('../models/Drone.model');
 const router = express.Router();
 const Drone = require('../models/Drone.model');
 // require the Drone model here
@@ -31,19 +32,44 @@ router.post('/drones/create', (req, res, next) => {
   .catch (error => console.log('Drone was"nt created try again!', error))
 });
 
-router.get('/drones/:id/edit', (req, res, next) => {
+router.get('/drones/:id/edit',async (req, res, next) => {
   // Iteration #4: Update the drone
   // ... your code here
+  try {
+    const {id} = req.params;
+    res.render('drones/update-form')
+    const updateDrone = await Drone.findById(id);
+    console.log(updateDrone)
+  } catch (error) {
+    console.log('updating drone error:', error);
+    next(error);
+  }
 });
 
-router.post('/drones/:id/edit', (req, res, next) => {
+router.post('/drones/:id/edit', async(req, res, next) => {
   // Iteration #4: Update the drone
   // ... your code here
+  try {
+  const {id} = req.body;
+  const updatedDrone  = await Drone.findByIdAndUpdate(id);
+  console.log(updatedDrone)
+  } catch (error) {
+    console.log('Error updating drone', error)
+    next(error);
+  }
 });
 
-router.post('/drones/:id/delete', (req, res, next) => {
+router.post('/drones/:id/delete', async (req, res, next) => {
   // Iteration #5: Delete the drone
   // ... your code here
+  try {
+  const {id, Delete} = req.body
+  console.log(req.body);
+  const deletedDrone = await Drone.findByIdAndDelete(id)  
+  } catch (error) {
+    console.log('Error deleting Drone', error)
+    next(error)
+  }
 });
 
 module.exports = router;
