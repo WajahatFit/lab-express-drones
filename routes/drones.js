@@ -22,14 +22,19 @@ router.get('/drones/create', (req, res, next) => {
   res.render('drones/create-form');
 });
 
-router.post('/drones/create', (req, res, next) => {
+router.post('/drones/create', async(req, res, next) => {
   // Iteration #3: Add a new drone
-   
-  Drone.create(req.body)
-  .then (()=>{
-    res.redirect('/drones');
-  })
-  .catch (error => console.log('Drone was"nt created try again!', error))
+  try {
+    
+    const { name, propellers, speed } = req.body;
+    const newDrone =  await Drone.create({name, propellers, speed})
+    if(newDrone){
+      res.redirect('/drones')
+    }
+
+  } catch (error) {
+    console.log('Error while creating new Drone:', error)
+  }
 });
 
 router.get('/drones/:id/edit',async (req, res, next) => {
@@ -63,9 +68,9 @@ router.post('/drones/:id/delete', async (req, res, next) => {
   // Iteration #5: Delete the drone
   // ... your code here
   try {
-  const {id, Delete} = req.body
-  console.log(req.body);
-  const deletedDrone = await Drone.findByIdAndDelete(id)  
+  const { id } = req.query
+  await Drone.findByIdAndDelete(id)
+  res.redirect('/drones'); 
   } catch (error) {
     console.log('Error deleting Drone', error)
     next(error)
