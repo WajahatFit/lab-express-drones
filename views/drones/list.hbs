@@ -2,8 +2,8 @@
 
 {{#each drones}}
 <div>
-    <p>Name: {{this.name}}</p>
-    <p>Propellers: {{this.propellers}}</p>
+    <a href="/drones/{{_id}}">Name:{{name}}</a>
+    <p>Propellers: {{propellers}}</p>
     <p>Speed: {{maxSpeed}}</p>
 </div>
 {{/each}}
