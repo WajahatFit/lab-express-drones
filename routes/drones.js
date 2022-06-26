@@ -17,12 +17,12 @@ router.get('/', async (req, res, next) => {
   
 });
 
-router.get('/drones/create', (req, res, next) => {
+router.get('/create', (req, res, next) => {
   // Iteration #3: Add a new drone
   res.render('drones/create-form');
 });
 
-router.post('/drones/create', async(req, res, next) => {
+router.post('/create', async(req, res, next) => {
   // Iteration #3: Add a new drone
   try {
     
@@ -37,7 +37,7 @@ router.post('/drones/create', async(req, res, next) => {
   }
 });
 
-router.get('/drones/:id/edit',async (req, res, next) => {
+router.get('/:id/edit',async (req, res, next) => {
   // Iteration #4: Update the drone
   // ... your code here
   try {
@@ -51,7 +51,7 @@ router.get('/drones/:id/edit',async (req, res, next) => {
   }
 });
 
-router.post('/drones/:id/edit', async(req, res, next) => {
+router.post('/:id/edit', async(req, res, next) => {
   // Iteration #4: Update the drone
   // ... your code here
   try {
@@ -64,7 +64,7 @@ router.post('/drones/:id/edit', async(req, res, next) => {
   }
 });
 
-router.post('/drones/:id/delete', async (req, res, next) => {
+router.post('/:id/delete', async (req, res, next) => {
   // Iteration #5: Delete the drone
   // ... your code here
   try {
