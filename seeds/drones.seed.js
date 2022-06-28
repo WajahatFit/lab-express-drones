@@ -26,6 +26,9 @@ mongoose
     console.log(`Seeded with ${drones.length} drones`)
     return Drone.create(drones);
   })
+  .then(()=>{
+    console.log(`Seeded with ${drones.length} drones`)
+  })
   .catch((err) => {
     console.error("Error connecting to mongo: ", err)
   })

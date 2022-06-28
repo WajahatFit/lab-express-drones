@@ -24,14 +24,14 @@ router.get('/create', (req, res, next) => {
 
 router.post('/create', async(req, res, next) => {
   // Iteration #3: Add a new drone
+  const { name, propellers, speed } = req.body;
+  const propellerInt= parseInt(propellers);
+  const speedInt = parseInt(speed);
   try {
     
-    const { name, propellers, speed } = req.body;
-    const newDrone =  await Drone.create({name, propellers, speed})
-    if(newDrone){
-      res.redirect('/drones')
-    }
-
+    const newDrone =  await Drone.create({name, propellers:propellerInt, speed:speedInt})
+    res.redirect('/drones');
+    console.log(newDrone);
   } catch (error) {
     console.log('Error while creating new Drone:', error)
   }
@@ -39,9 +39,10 @@ router.post('/create', async(req, res, next) => {
 
 router.get('/:id/edit',async (req, res, next) => {
   // Iteration #4: Update the drone
+  const {id} = req.params;
   // ... your code here
   try {
-    const {id} = req.params;
+
     res.render('drones/update-form')
     const updateDrone = await Drone.findById(id);
     console.log(updateDrone)
@@ -54,8 +55,8 @@ router.get('/:id/edit',async (req, res, next) => {
 router.post('/:id/edit', async(req, res, next) => {
   // Iteration #4: Update the drone
   // ... your code here
-  try {
   const {id} = req.body;
+  try {
   const updatedDrone  = await Drone.findByIdAndUpdate(id);
   console.log(updatedDrone)
   } catch (error) {
