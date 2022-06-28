@@ -43,7 +43,7 @@ router.get('/:id/edit',async (req, res, next) => {
   // ... your code here
   try {
 
-    res.render('drones/update-form')
+    res.render('/update-form')
     const updateDrone = await Drone.findById(id);
     console.log(updateDrone)
   } catch (error) {
